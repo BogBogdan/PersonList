@@ -41,7 +41,7 @@ public class CreatePerson extends AppCompatActivity {
         uzmipodatkeb=findViewById(R.id.uzmipodatkebtn);
 
         radar.setMaxValue(10);
-
+        radar.setPolygonColor(Color.parseColor("#800000"));;
 
         abilitys.addTextChangedListener(new TextWatcher() {
 

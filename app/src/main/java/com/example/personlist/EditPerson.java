@@ -3,6 +3,7 @@ package com.example.personlist;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -46,7 +47,7 @@ public class EditPerson extends AppCompatActivity {
         prezimeet.setText(AppCore.get().getPrezime());
 
         citajRadar();
-
+        radar.setPolygonColor(Color.parseColor("#800000"));;
 
 
 
@@ -149,12 +150,7 @@ public class EditPerson extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
 
-        
-        return super.onCreateOptionsMenu(menu);
-    }
 
     public void citajRadar()
     {

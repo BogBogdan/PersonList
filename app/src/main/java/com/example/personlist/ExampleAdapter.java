@@ -2,6 +2,7 @@ package com.example.personlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         }
         holder.radarView.setMaxValue(max);
         holder.radarView.setData(abilitys);
+        holder.radarView.setPolygonColor(Color.parseColor("#800000"));
         holder.textView1.setText(currentItem.getMtext1());
         holder.textview2.setText(currentItem.getMtext2());
 

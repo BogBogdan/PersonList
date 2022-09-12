@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     public void insertItem(int position, String ime, String prezime, ArrayList<RadarHolder> radarHolder)
     {
 
-        mExampleList.add(position,new ExampleItem(R.drawable.ic_launcher_background,ime,prezime,radarHolder));
+        mExampleList.add(position,new ExampleItem(ime,prezime,radarHolder));
 
         adapter.notifyItemInserted(position);
        // Toast.makeText(getBaseContext(),ime+"  je ime",Toast.LENGTH_SHORT).show();
@@ -328,6 +328,8 @@ public class MainActivity extends AppCompatActivity {
     {
         double[] pomocnalista=new double[mExampleList.size()];
         int brojac=0;
+
+
         for(ExampleItem ei:mExampleList)
         {
             double br=0;
@@ -340,11 +342,8 @@ public class MainActivity extends AppCompatActivity {
             pomocnalista[brojac]=vrednost/br;
             brojac++;
         }
-
-        Toast.makeText(this, pomocnalista[0]+" "+pomocnalista[1]+" "+pomocnalista[2]+" "+pomocnalista[3], Toast.LENGTH_SHORT).show();
+   
         quickSort(pomocnalista,0,mExampleList.size()-1);
-
-        Toast.makeText(this, pomocnalista[0]+" "+pomocnalista[1]+" "+pomocnalista[2]+" "+pomocnalista[3], Toast.LENGTH_SHORT).show();
       //  Toast.makeText(this, mExampleList.get(0).getMtext2()+" "+mExampleList.get(1).getMtext2()+" "+mExampleList.get(2).getMtext2()+" "+mExampleList.get(3).getMtext2(), Toast.LENGTH_SHORT).show();
     }
 

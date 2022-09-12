@@ -11,7 +11,7 @@ public class ExampleItem {
     private String mtext2;
     private ArrayList<RadarHolder> abilitys;
 
-    public ExampleItem(int IimageR,String mtext1,String mtext2,ArrayList<RadarHolder> abilitys)
+    public ExampleItem(String mtext1,String mtext2,ArrayList<RadarHolder> abilitys)
     {
 
         this.mtext1=mtext1;

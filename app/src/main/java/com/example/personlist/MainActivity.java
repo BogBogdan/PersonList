@@ -1,5 +1,6 @@
 package com.example.personlist;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -188,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
+            Collections.reverse(mExampleList);
             upisiuMemoriju();
         }
         catch(Exception e){
@@ -197,12 +202,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
 
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_bar,menu);
+        return true;
+    }
 
-        public void insertItem(int position,String ime,String prezime,ArrayList<RadarHolder> radarHolder)
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.maxsort:
+                sortMax();
+                Collections.reverse(mExampleList);
+                for(int i=0;i<mExampleList.size();i++)
+                    adapter.notifyItemChanged(i);
+                return true;
+            case R.id.minsort:
+                sortMax();
+                for(int i=0;i<mExampleList.size();i++)
+                    adapter.notifyItemChanged(i);
+                return true;
+            case R.id.oldestsort:
+                BuildRecycleViewer();
+                createFile();
+                return true;
+            case R.id.newestsort:
+                BuildRecycleViewer();
+                createFile();
+                Collections.reverse(mExampleList);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void insertItem(int position, String ime, String prezime, ArrayList<RadarHolder> radarHolder)
     {
 
         mExampleList.add(position,new ExampleItem(R.drawable.ic_launcher_background,ime,prezime,radarHolder));
+
         adapter.notifyItemInserted(position);
        // Toast.makeText(getBaseContext(),ime+"  je ime",Toast.LENGTH_SHORT).show();
 
@@ -281,4 +322,95 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    void sortMax()
+    {
+        double[] pomocnalista=new double[mExampleList.size()];
+        int brojac=0;
+        for(ExampleItem ei:mExampleList)
+        {
+            double br=0;
+            double vrednost=0;
+            for(RadarHolder s:ei.getAbilitys())
+            {
+                vrednost+=s.value;br++;
+            }
+
+            pomocnalista[brojac]=vrednost/br;
+            brojac++;
+        }
+
+        Toast.makeText(this, pomocnalista[0]+" "+pomocnalista[1]+" "+pomocnalista[2]+" "+pomocnalista[3], Toast.LENGTH_SHORT).show();
+        quickSort(pomocnalista,0,mExampleList.size()-1);
+
+        Toast.makeText(this, pomocnalista[0]+" "+pomocnalista[1]+" "+pomocnalista[2]+" "+pomocnalista[3], Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, mExampleList.get(0).getMtext2()+" "+mExampleList.get(1).getMtext2()+" "+mExampleList.get(2).getMtext2()+" "+mExampleList.get(3).getMtext2(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    //QUICK SORT
+
+    public void swap(double[] arr, int i, int j)
+    {
+        double temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+
+    }
+
+    public void swapExampleItem(int i,int j)
+    {
+        ExampleItem tren=mExampleList.get(i);
+        mExampleList.set(i,mExampleList.get(j));
+        mExampleList.set(j,tren);
+    }
+
+    public int partition(double[] arr, int low, int high)
+    {
+
+        // pivot
+        double pivot = arr[high];
+
+        // Index of smaller element and
+        // indicates the right position
+        // of pivot found so far
+        int i = (low - 1);
+
+        for(int j = low; j <= high - 1; j++)
+        {
+
+            // If current element is smaller
+            // than the pivot
+            if (arr[j] < pivot)
+            {
+
+                // Increment index of
+                // smaller element
+                i++;
+                swap(arr, i, j);
+                swapExampleItem(i,j);
+            }
+        }
+        swap(arr, i + 1, high);
+        swapExampleItem(i+1,high);
+        return (i + 1);
+    }
+
+
+    public void quickSort(double[] arr, int low, int high)
+    {
+        if (low < high)
+        {
+
+            // pi is partitioning index, arr[p]
+            // is now at right place
+            int pi = partition(arr, low, high);
+
+            // Separately sort elements before
+            // partition and after partition
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
 }

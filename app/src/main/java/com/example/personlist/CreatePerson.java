@@ -90,8 +90,8 @@ public class CreatePerson extends AppCompatActivity {
                         }
 
                     }
-                    radar.setData(proga);
                     radar.setMaxValue(max);
+                    radar.setData(proga);
                 }
             }
         });

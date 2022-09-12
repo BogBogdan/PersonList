@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/maxsort"
+        android:title="Max Sort"
+        >
+    </item>
+
+    <item
+        android:id="@+id/minsort"
+        android:title="Min Sort"
+        >
+    </item>
+
+    <item
+        android:id="@+id/oldestsort"
+        android:title="The Oldest Sort"
+        >
+    </item>
+
+    <item
+        android:id="@+id/newestsort"
+        android:title="The Latest Sort"
+        >
+    </item>
+</menu>
